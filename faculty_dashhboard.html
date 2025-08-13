@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>All Complaints</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Student</th><th>Title</th><th>Description</th><th>Status</th><th>Update Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for complaint in complaints %}
+    <tr>
+      <td>{{ complaint.student_name }}</td>
+      <td>{{ complaint.title }}</td>
+      <td>{{ complaint.description }}</td>
+      <td>{{ complaint.status }}</td>
+      <td>
+        <form method="post" action="{{ url_for('update_status', complaint_id=complaint.id) }}">
+          <select name="status" class="form-select" style="width:150px; display:inline-block;">
+            <option value="Pending" {% if complaint.status == 'Pending' %}selected{% endif %}>Pending</option>
+            <option value="In Progress" {% if complaint.status == 'In Progress' %}selected{% endif %}>In Progress</option>
+            <option value="Resolved" {% if complaint.status == 'Resolved' %}selected{% endif %}>Resolved</option>
+          </select>
+          <button type="submit" class="btn btn-primary btn-sm">Update</button>
+        </form>
+      </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5">No complaints found.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

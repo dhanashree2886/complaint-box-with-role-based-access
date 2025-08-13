@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Submit a Complaint</h2>
+<form method="post">
+  <div class="mb-3">
+    <label class="form-label">Title</label>
+    <input type="text" class="form-control" name="title" required />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Description</label>
+    <textarea class="form-control" name="description" rows="3" required></textarea>
+  </div>
+  <button type="submit" class="btn btn-success">Submit</button>
+</form>
+
+<hr />
+<h3>Your Complaints</h3>
+<table class="table table-bordered">
+  <thead>
+    <tr><th>Title</th><th>Description</th><th>Status</th></tr>
+  </thead>
+  <tbody>
+    {% for complaint in complaints %}
+    <tr>
+      <td>{{ complaint.title }}</td>
+      <td>{{ complaint.description }}</td>
+      <td>{{ complaint.status }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="3">No complaints submitted.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
